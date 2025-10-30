@@ -152,7 +152,8 @@ def generate_missing_poster(
     image_path: str,
     description_lines: list[tuple[str, str]],
     out_path: str,
-    dpi: int = 300
+    dpi: int = 300,
+    phone_numbers:list[str]=["017621663536", "01629567590"]
 ):
     A4_W, A4_H = 2480, 3508
 
@@ -254,7 +255,8 @@ def generate_missing_poster(
 
     # 4) Footer
     #telefonnummer Jasper und Lea
-    mobile_number = random.choice(["017621663536", "01629567590"])
+    #print(phone_numbers)
+    mobile_number = random.choice(phone_numbers)
     footer_text = f"PLEASE CALL - {mobile_number}!"
     fw, fh = _text_size(draw, footer_text, call_font)
     footer_x = (A4_W - fw) // 2
@@ -317,13 +319,13 @@ def generate_missing_poster(
 
 
 
-def csv_to_posters(df:pd.DataFrame,out_dir:Path):
+def csv_to_posters(df:pd.DataFrame,out_dir:Path,phone_numbers:list[str]=["017621663536", "01629567590"]):
     out_dir = Path(out_dir)
     for i in range(df.shape[0]):
         person = load_csv_row(df=df,irow=i)
         person_name = person[0].replace(" ", "_")
         filename = person_name +"_missing_poster.pdf"
-        generate_missing_poster(*person,out_path = out_dir/filename)
+        generate_missing_poster(*person,out_path = out_dir/filename,phone_numbers=phone_numbers)
         print(f"Saved: {filename}")
     print("Finished all Missing posters")
 

@@ -4,7 +4,6 @@ import textwrap
 from pathlib import Path
 from typing import List, Tuple
 import pandas as pd
-import math
 
 IMAGE_EXTS = (".jpg", ".jpeg", ".png", ".webp")
 

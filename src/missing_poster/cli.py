@@ -20,6 +20,7 @@ def main():
     parser_missing = subparsers.add_parser("csv_to_missing_posters", help="Create missing posters from a CSV")
     parser_missing.add_argument("-csv","--csv_path", help="Path to CSV file",type=str,required=True)
     parser_missing.add_argument("-o","--output_dir", help="Output directory for missing posters",type=str,default="out")
+    parser_missing.add_argument("-n","--numbers",help="Phone numbers to choose from on poster",nargs="+",type=str,default=["017621663536", "01629567590"])
 
     args = parser.parse_args()
     
@@ -27,7 +28,8 @@ def main():
         create_csv(args.input_dir,args.output_filename, args.output_dir,n_attributes=args.n_attributes,seed=args.seed)
     elif args.command == "csv_to_missing_posters":
         missing_person_df = read_csv(args.csv_path)
-        csv_to_posters(missing_person_df, args.output_dir)
+        print(args.numbers[0])
+        csv_to_posters(missing_person_df, args.output_dir,phone_numbers=args.numbers)
     else:
         parser.print_help()
 
